@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox - Home</title>
+    <style>
+        /* ზუსტად შავი ფონი, როგორც ფოტოზე */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ზედა შავი მენიუ */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: #000000;
+        }
+
+        /* ლოგო და SELECT */
+        .logo-area {
+            display: flex;
+            align-items: center;
+            font-weight: 900;
+            font-size: 20px;
+            letter-spacing: 0.5px;
+        }
+        
+        .hamburger {
+            font-size: 24px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .select-badge {
+            background-color: #fff;
+            color: #000;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 8px;
+        }
+
+        /* იკონები მარჯვნივ */
+        .nav-icons {
+            display: flex;
+            gap: 18px;
+            font-size: 22px;
+            align-items: center;
+        }
+
+        .bell-icon {
+            position: relative;
+        }
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #2d65ff;
+            color: #fff;
+            font-size: 10px;
+            font-weight: bold;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Free Item ბარათი */
+        .promo-card {
+            background-color: #181a1c;
+            margin: 10px 15px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .promo-title {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .promo-title span {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .promo-subtitle {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 12px;
+        }
+
+        .continue-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* წრიული ღილაკები */
+        .action-circles {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 20px;
+        }
+
+        .circle-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 22%;
+        }
+
+        .circle-icon {
+            width: 75px;
+            height: 75px;
+            background-color: #1c1d1f;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 8px;
+            /* ვიყენებთ სიმბოლოებს, რადგან ნამდვილი იკონები არ გვაქვს */
+        }
+        
+        /* სიმბოლოების ზომა */
+        .circle-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: #fff;
+        }
+
+        .circle-item span {
+            font-size: 12px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* Recommended For You სექცია */
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 25px 15px 10px 15px;
+        }
+
+        /* მთავარი თამაშის ბარათი */
+        .game-card {
+            margin: 0 15px;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #181a1c;
+        }
+
+        .game-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .game-info {
+            padding: 12px;
+        }
+
+        .game-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .game-rating {
+            font-size: 13px;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+        }
+
+        .game-rating span {
+            margin-right: 5px;
+        }
+
+        /* პატარა თამაშების რიგი */
+        .small-games-row {
+            display: flex;
+            gap: 12px;
+            padding: 15px;
+            padding-bottom: 40px;
+            overflow-x: auto;
+            scrollbar-width: none; /* ჰორიზონტალური სქროლის დამალვა */
+        }
+        
+        .small-games-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .small-game-card {
+            min-width: 48%;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .small-game-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+        
+        /* ტექსტი პატარა სურათებზე */
+        .small-game-text {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-weight: 900;
+            font-size: 14px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ზედა მენიუ -->
+    <div class="top-nav">
+        <div class="logo-area">
+            <span class="hamburger">&#9776;</span>
+            ROBLOX <span class="select-badge">SELECT</span>
+        </div>
+        <div class="nav-icons">
+            <span>&#128269;</span> <!-- ძებნა -->
+            <span>&#11041;</span> <!-- ჰექსაგონი -->
+            <div class="bell-icon">
+                <span>&#128276;</span> <!-- ზარი -->
+                <div class="notification-badge">1</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Free Item ბარათი -->
+    <div class="promo-card">
+        <div class="promo-title">
+            <span>🎁</span> Free item with an age check
+        </div>
+        <div class="promo-subtitle">It only takes a moment.</div>
+        <button class="continue-btn">Continue</button>
+    </div>
+
+    <!-- წრიული ღილაკები -->
+    <div class="action-circles">
+        <div class="circle-item">
+            <div class="circle-icon">
+                <!-- მომხმარებლის დამატების იკონა -->
+                <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <span>Add Friends</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-icon">
+                <!-- ხმლების იკონა -->
+                <svg viewBox="0 0 24 24"><path d="M6.92 5H5l9 9 1.01-1.01L6.92 5zM16 4l-3 3 1.5 1.5 3-3L16 4zM4 16l3 3 1.5-1.5-3-3L4 16zM14.5 13.5L16 15l3-3-1.5-1.5-3 3zM2 22l4-4-1.5-1.5-4 4L2 22z"/></svg>
+            </div>
+            <span>Experience</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-icon">
+                <!-- საკეტის იკონა -->
+                <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            </div>
+            <span>Account</span>
+        </div>
+        <div class="circle-item">
+            <div class="circle-icon">
+                <!-- მეტის იკონა -->
+                <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+            </div>
+            <span>More</span>
+        </div>
+    </div>
+
+    <!-- Recommended For You -->
+    <div class="section-title">Recommended For You</div>
+
+    <!-- მთავარი თამაში -->
+    <div class="game-card">
+        <!-- Steal An Egg სურათი (ჩასვი შენი სურათის ლინკი, თუ გინდა ზუსტად იგივე იყოს) -->
+        <img src="https://tr.rbxcdn.com/180DAY-81f6a2ecb0c3ec36907d294812697489/768/432/Image/Png/noFilter" alt="Steal An Egg">
+        <div class="game-info">
+            <div class="game-title">Steal An Egg</div>
+            <div class="game-rating"><span>👍</span> 91% Rating</div>
+        </div>
+    </div>
+
+    <!-- პატარა თამაშები -->
+    <div class="small-games-row">
+        <div class="small-game-card">
+            <img src="https://tr.rbxcdn.com/180DAY-47452cf8558b9cfce56e2b37133117db/768/432/Image/Png/noFilter" alt="ROWORLD">
+            <div class="small-game-text">ROWORLD</div>
+        </div>
+        <div class="small-game-card">
+            <img src="https://tr.rbxcdn.com/180DAY-2f6c86596d82183bdfec736d876ed98e/768/432/Image/Png/noFilter" alt="Sniper Arena">
+            <div class="small-game-text" style="left: auto; right: 10px;">SNIPER ARENA</div>
+        </div>
+    </div>
+
+</body>
+</html>
